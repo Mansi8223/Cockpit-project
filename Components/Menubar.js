@@ -1,86 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import Link from 'next/link'
-import Router, { useRouter } from 'next/router';
-function Menubar() {
-    const [path, setPath] =useState("");
-    const router = useRouter();
-    useEffect(()=>{
-      setPath(router.route)
-    })
+import React from 'react'
+import MenuItems from './MenuItems'
+const MenuBar = () => {
   return (
-    <div className={`row d-flex d-flex-column d-align-center gap-1`}> 
-        {path=="/Tasks"?
-            <Link  href='/Tasks'>
-                <div className={`active col-10 p-4 `}>
-                    <img src='/images/Subtract.png' alt='tasks-icon'/>
-                    <h5 className={`color-primary f-700 l-22`}>Tasks</h5>
-                </div>
-            </Link>
-          : <Link  href='/Tasks'>
-                <div className={`inactive col-10 p-4`}>
-                    <img src='/images/Subtract (1).png' alt='tasks1-icon'/>
-                    <h5 className={`color-white f-700 l-22`}>Tasks</h5>
-                </div>
-            </Link>
-        }
-        {path=="/Clients"?
-            <Link  href='/Clients'>
-                <div className={`active col-10 p-4`}>
-                    <img src='/images/eva_person-done-fill.png' alt='clients-icon'/>
-                    <h5 className={`color-primary f-700 l-22`}>Clients</h5>
-                </div>
-            </Link>
-          : <Link  href='/Clients'>
-                <div className={`inactive col-10 p-4`}>
-                    <img src='/images/eva_person-done-fill (1).png' alt='clients1-icon'/>
-                    <h5 className={`color-white f-700 l-22`}>Clients</h5>
-                </div>
-            </Link>
-        }
-        {path=="/ShowingAssistant"?
-            <Link  href='/ShowingAssistant'>
-                <div className={`active col-10 p-4`}>
-                    <img src='/images/fa-solid_car-side.png' alt='sa-icon'/>
-                    <h5 className={`color-primary f-700 l-22`}>Showing Assistant</h5>
-                </div>
-            </Link>
-          : <Link  href='/ShowingAssistant'>
-                <div className={`inactive col-10 p-4`}>
-                    <img src='/images/fa-solid_car-side (1).png' alt='sa1-icon'/>
-                    <h5 className={`color-white f-700 l-22`}>Showing Assistant</h5>
-                </div>
-            </Link>
-        }
-        {path=="/Messages"?
-            <Link  href='/Messages'>
-                <div className={`active col-10 p-4`}>
-                    <img src='/images/eva_message-circle-fill.png' alt='message-icon'/>
-                    <h5 className={`color-primary f-700 l-22`}>Messages</h5>
-                </div>
-            </Link>
-          : <Link  href='/Messages'>
-                <div className={`inactive col-10 p-4`}>
-                    <img src='/images/eva_message-circle-fill (1).png' alt='message1-icon'/>
-                    <h5 className={`color-white f-700 l-22`}>Messages</h5>
-                </div>
-            </Link>
-        }
-        {path=="/TaskPrice"?
-            <Link  href='/TaskPrice'>
-                <div className={`active col-10 p-4`}>
-                    <img src='/images/feather_dollar-sign.png' alt='TaskPrice-icon'/>
-                    <h5 className={`color-primary f-700 l-22`}>Task Price</h5>
-                </div>
-            </Link>
-          : <Link  href='/TaskPrice'>
-                <div className={`inactive col-10 p-4`}>
-                    <img src='/images/feather_dollar-sign (1).png' alt='TaskPrice1-icon'/>
-                    <h5 className={`color-white f-700 l-22`}>Task Price</h5>
-                </div>
-            </Link>
-        }
+    <div className={`col-10 d-flex d-flex-column d-align-center gap-1 p-5`}>
+        <MenuItems value="Tasks" activeImage="/images/Subtract.png" inactiveImage="/images/Subtract (1).png" path="/TaskWrapper" path1="/TaskWrapper/[id]" path2="/NewRequest" path3="/Template" path4="/NewRequest/[id]" path5="/SubTasks/[id]" path6="/ViewSubTask/[id]" path7="/CreateTask" path8="/SubTaskForm/[id]" haspath1="1"  haspath2="1"  haspath3="1" haspath4="1" haspath5="1" haspath6="1" haspath7="1" haspath8="1" multipath="1"></MenuItems>
+        <MenuItems value="Clients" activeImage="/images/eva_person-done-fill.png" inactiveImage="/images/eva_person-done-fill (1).png" path="/Clients" path1="/Clients/[id]" path2="/AddNewTransaction/[id]" path3="/AddNewClient" haspath1="1" haspath2="1" haspath3="1" multipath="1"></MenuItems>
+        <MenuItems value="Showing Assistant" activeImage="/images/fa-solid_car-side.png" inactiveImage="/images/fa-solid_car-side (1).png" path="/ShowingAssistant" path1="/ShowingAssistant/[id]" path2="/AddNewAssistant" haspath1="1" haspath2="1" multipath="1"></MenuItems>
+        <MenuItems value="Messages" activeImage="/images/eva_message-circle-fill.png" inactiveImage="/images/eva_message-circle-fill (1).png" path="/Messages" path1="/DisputeMessages" haspath1="1" multipath="1"></MenuItems>
+        <MenuItems value="Task Price" activeImage="/images/feather_dollar-sign.png" inactiveImage="/images/feather_dollar-sign (1).png" path="/TaskPrice" multipath="0"></MenuItems>
     </div>
   )
 }
 
-export default Menubar
+export default MenuBar

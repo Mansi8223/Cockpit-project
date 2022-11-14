@@ -6,7 +6,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Link from 'next/link'
-function TaskTable() {
+function TaskTable({data, searchTerm}) {
+  // console.log(data)
   return (
     <TableContainer className={`table m-3 h-538 border-light-gray border-rounded-12 bg-white`}>
       <Table size="small" aria-label="a dense table" >
@@ -23,20 +24,32 @@ function TaskTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow className={`table-body`}>
-            <TableCell component="th" scope="row">Labore magnam nemo repellendus.</TableCell>
-            <TableCell align="left">Showing assistant</TableCell>
-            <TableCell align="left">Floyd Miles</TableCell>
-            <TableCell align="left">Esther Howard</TableCell>
-            <TableCell align="center"><button className={`btn-secondary-gray`}>Unassigned</button></TableCell>
-            <TableCell align="left">5 hours</TableCell>
-            <TableCell align="left">8/30/14</TableCell>
-            <TableCell align="center">
-              <Link  href='/ViewTask'>
-                <button className={`btn-view`}><img src='images/entypo_chevron-right.svg' alt='right-icon'/></button>
-              </Link>
-            </TableCell>
-          </TableRow>
+        {data && data.filter((val)=>{
+            if(searchTerm == ""){
+              return val
+            }else if(val.taskName.toLowerCase().includes(searchTerm.toLowerCase())){
+              return val
+            }
+          }).map((item,index)=>(
+            <TableRow className={`table-body`} key={index+1}>
+              <TableCell component="th" scope="row">{item.taskName}</TableCell>
+              <TableCell align="left">{item.taskType}</TableCell>
+              {item.assignedBy?<TableCell align="left">{item.assignedBy.user.name}</TableCell>:<TableCell align="left">N/A</TableCell>}
+              {item.assignee?<TableCell align="left">{item.assignee.user.name}</TableCell>:<TableCell align="left">N/A</TableCell>}
+              <TableCell align="center">
+                {item.status === "Not-started" && <button className={"btn-secondary-red"}>{item.status}</button>}
+                {item.status === "Unassigned" && <button className={"btn-secondary-gray"}>{item.status}</button>}
+                {item.status === "In-progress" && <button className={"btn-secondary-green"}>{item.status}</button>}
+                {item.status === "Completed" && <button className={"btn-secondary-blue"}>{item.status}</button>}
+                {item.status === "Request-revision" && <button className={"btn-secondary-yellow"}>Req.revision</button>}
+              </TableCell>
+              <TableCell align="left">5 hours</TableCell>
+              <TableCell align="left">{item.Deadline}</TableCell>
+              <TableCell align="center">
+              <Link href={`/TaskWrapper/${item._id}`}><button className={`btn-view`}><img src='images/entypo_chevron-right.svg' alt='right-icon'/></button></Link>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

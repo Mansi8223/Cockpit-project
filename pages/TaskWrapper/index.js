@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
-import Task from '../Components/Task'
-import Base from '../Layout/Base'
+import Task from '../../Components/Task'
+import Base from '../../Layout/Base'
 function Tasks() {
   return (
     <Fragment>

@@ -622,4 +622,37 @@ Breakpoints
         flex-direction: row;
         justify-content: space-between;
     }
+    .addNew{
+        width: 131px;
+    }
+}
+/* sidebar-hamburger */
+@media screen  and (min-width:359.98px){
+    .sidebar{
+        display: none;
+    }
+}
+@media screen and (min-width:1199.98px){
+    .menu-icon{
+        display: none;
+    }
+    .close-icon{
+        display: none;
+    }
+   .sidebar{
+        display: inherit;
+        width:clamp(14.375rem, 3.9583rem + 13.8889vw, 20.625rem);
+  }
+    .cd-wrapper{
+        display: flex;
+        flex-direction: row;
+    }
+    .container-right{
+        margin-left:clamp(2.5rem, 2.1667rem + 0.6944vw, 3rem) !important;
+    }
+}
+@media screen and (min-width:991.98px){
+    .create-task{
+        width: 197px;
+    }
 }

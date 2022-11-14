@@ -27,6 +27,12 @@ h6,.h6{
 p,li{
     font-size: clamp(0.875rem, 0.8500rem + 0.1250vw, 1rem);	
 }
+.font-31{
+    font-size: clamp(1.8125rem, 1.7292rem + 0.1736vw, 1.9375rem);
+}
+.font-20{
+    font-size: clamp(1.125rem, 1.1000rem + 0.1250vw, 1.25rem);
+}
 .font-16{
     font-size: clamp(0.875rem, 0.8500rem + 0.1250vw, 1rem);
 }
@@ -98,4 +104,18 @@ p,li{
 }
 .text-capitalize{
     text-transform: capitalize;
+}
+.font-normal{
+    font-family: 'Nunito Sans';
+    font-style: normal;
+}
+/* word-break */
+.word-break{
+    word-break: break-word;
+}
+.text-ellipsis{
+    text-overflow: ellipsis;
+}
+.nowrap{
+    white-space: nowrap;
 }

@@ -1,0 +1,18 @@
+.image{
+    border-radius: 8px;
+    width:350px;
+    height: 200px;
+    margin-bottom: 220px;
+}
+.img-msg{
+    border-radius: 8px;
+    width:350px;
+    height: 200px;
+}
+.msgs{
+    position: relative;
+    bottom: 0;
+}
+.msgs::-webkit-scrollbar{
+    display: none;
+   }

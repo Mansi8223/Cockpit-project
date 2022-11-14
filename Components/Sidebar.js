@@ -1,20 +1,16 @@
 import React from 'react'
 import Menubar from './Menubar'
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
 function Sidebar() {
-  const sideBarHandler = (e) => {
-    // e.currentTarget.classList.toggle(styles["open"]);
-    // document.querySelector(#sidebar).classList.toggle(styles["open"])
-    // document.querySelector(main).classList.toggle(styles["blur"])
-    // document.querySelector('#header-icon').classList.toggle(styles["header-op"])
-}
+  const handler=()=>{
+    var ele=document.getElementById("sb")
+    ele.classList.remove('sidebar-active')
+    ele.classList.add('sidebar')
+  }
   return (
-    // <div role="button" onClick={sideBarHandler} className={`d-flex d-align-center d-justify-center`}>
-    //   <MenuIcon/>
-    //   <CloseIcon/>
-    // </div>
-    <div className={`col-2 h-100 o-hidden left-none p-5 bg-primary box-s`}>
+    <div id='sb' className={`sidebar d-flex d-flex-column h-100 o-hidden left-none p-5 bg-primary box-s`}>
+      <div className={`close-icon self-end`} onClick={handler}>
+        <img src='/images/eva_close-fill.svg' alt='close-icon'/>
+      </div>
       <Menubar/>
     </div>
   )
