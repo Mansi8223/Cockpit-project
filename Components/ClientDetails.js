@@ -12,6 +12,7 @@ import Loader from './Loader'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Password from './Password';
+import ClientActivity from './ClientActivity';
 function ClientDetails() {
     var token = getOnBoardFromCookie()
     const router = useRouter();
@@ -27,10 +28,6 @@ function ClientDetails() {
     const[instagram, setInstagram]=useState(false)
     const[twitter, setTwitter]=useState(false)
     const[youtube, setYoutube]=useState(false)
-    // const[emdDate,setEmdDate]=useState('')
-    // const[financeDate, setFinanceDate]=useState("")
-    // const[apprisalDate, setApprisalDate]=useState("")
-    // const[diligencyDate, setDiligencyDate]=useState("")
     const[active, setActive]=useState(false)
     const[edit, setEdit]=useState(false)
     const[name, setName]=useState("")
@@ -39,22 +36,10 @@ function ClientDetails() {
     const[user, setUser]=useState("")
     const[favouriteTask, setFavouriteTask]=useState("")
     const fileInputRef = useRef();
-    // const[image, setImage]=useState();
-    // const[preview, setPreview]=useState("");
     const[url, setUrl]=useState("")
     const[profile,setProfile]=useState("")
+    const[activities,setActivities]=useState("")
     const[loading,setLoading]=useState(false)
-    // useEffect(()=>{
-    //     if(image){
-    //       const reader = new FileReader();
-    //       reader.onloadend =() =>{
-    //          setPreview(reader.result);
-    //       }
-    //       reader.readAsDataURL(image);
-    //     }else{
-    //         setPreview(null);
-    //     }
-    //   }, [image])
     useEffect(()=>{
         setLoading(true)
         var myHeaders = new Headers();
@@ -128,6 +113,41 @@ function ClientDetails() {
             });
           });
     },[])  
+
+useEffect(()=>{
+    var myHeaders = new Headers();
+    myHeaders.append("token", token);
+    
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+    
+    fetch(`http://34.209.233.51/api/client/all-task/${Id}`, requestOptions)
+      .then(response => response.text())
+      .then(result =>{ 
+          var res = JSON.parse(result);
+        // console.log(res.activity)
+          setActivities(res.activity)
+          setLoading(false)
+      })
+      .catch(error =>{ 
+        
+        setLoading(false)
+        toast.error(error.message,{
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            toastId:"2"
+        });
+      });
+},[])
 
     const modalHandler=()=>{
         setActive(prev => !prev)
@@ -607,48 +627,9 @@ function ClientDetails() {
                                     <h3 className={`font-normal f-700 l-28 color-yellow`}>$438</h3>
                                 </div>
                             </div>
-                            <div className={`d-flex d-flex-row d-align-start d-justify-space-between p-4 bg-white box-s border-rounded-12 mt-6`}>
-                                <div className={`col-10 d-flex d-flex-column d-align-start gap-4`}>
-                                    <div className={`d-flex d-flex-row d-align-center gap-2`}>
-                                        <img src='/images/eva_checkmark-circle-2-fill (1).svg' alt=''/>
-                                        {/* <img src='/images/eva_checkmark-circle-2-fill (2).svg' alt=''/> */}
-                                        <h3 className={`font-normal f-700 l-28 color-black text-ellipsis`}>Qui aut cumque animi a ipsam</h3>
-                                    </div>
-                                    <h5 className={`font-normal f-700 l-22 color-gray`}>20 Sept,21</h5>
-                                    <div className={`d-flex d-flex-row d-align-center gap-4`}>
-                                        <div className={`d-flex d-flex-row d-align-center gap-1`}>
-                                        <h5 className={`font-normal f-700 l-22 color-black`}>Status:</h5>
-                                        <button className={`btn-secondary-green`}>In progress</button>
-                                        </div>
-                                        <div className={`d-flex d-flex-row d-align-center gap-1`}>
-                                        <h5 className={`font-normal f-700 l-22 color-black`}>Screenshot:</h5>
-                                        <button className={`btn-tertiary`}>Upload</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h3 className={`col-2 font-normal f-700 l-28 color-yellow`}>+ $232</h3>
-                            </div>
-                            <div className={`d-flex d-flex-row d-align-start d-justify-space-between p-4 box-s border-rounded-12 bg-white mt-6`}>
-                                <div className={`col-10 d-flex d-flex-column d-align-start gap-4`}>
-                                    <div className={`d-flex d-flex-row d-align-center gap-2`}>
-                                        {/* <img src='/images/eva_checkmark-circle-2-fill (1).svg' alt=''/> */}
-                                        <img src='/images/eva_checkmark-circle-2-fill (2).svg' alt=''/>
-                                        <h3 className={`font-normal f-700 l-28 color-black`}>Qui aut cumque animi a ipsam</h3>
-                                    </div>
-                                    <h5 className={`font-normal f-700 l-22 color-gray`}>20 Sept,21</h5>
-                                    <div className={`d-flex d-flex-row d-align-center gap-4`}>
-                                        <div className={`d-flex d-flex-row d-align-center gap-1`}>
-                                        <h5 className={`font-normal f-700 l-22 color-black`}>Status:</h5>
-                                        <button className={`btn-secondary-blue`}>Completed</button>
-                                        </div>
-                                        <div className={`d-flex d-flex-row d-align-center gap-1`}>
-                                        <h5 className={`font-normal f-700 l-22 color-black`}>Screenshot:</h5>
-                                        <button className={`btn-tertiary`}>Upload</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h3 className={`col-2 font-normal f-700 l-28 color-yellow`}>+ $232</h3>
-                            </div>
+                            {activities && activities.map((item,index)=>(
+                                <ClientActivity key={index+1} item={item}/> 
+                            ))}
                         </div>
                         <div className={`col-12 bg-white box-s border-rounded-16 p-8 h-fit-content`}>
                             <div className={`col-12 d-flex d-flex-row d-align-center d-justify-space-between mb-6`}>

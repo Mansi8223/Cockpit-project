@@ -259,7 +259,6 @@ function NewTaskDetails() {
         fetch(`http://34.209.233.51/api/task/approve-task/${Id}`, requestOptions)
         .then(response => response.text())
         .then(result => {
-            console.log(result)
             setAccept(true)
             setLoading(false)
             toast.success("Task accepted",{
@@ -738,31 +737,31 @@ const deliverableHandler=()=>{
                             <div className={`col-7 mr-5 font-31 f-700 l-40`}>Assignees & Timeline</div>
                             <div className={`col-7 col-md-5 col-lg-4 col-xl-7 d-flex d-flex-row d-align-center`}>
                               <h3 className={`ml-12 mr-5 f-600 l-20`}>Status:</h3>
-                              {data.assignee&&data.assignee.assistantType==="showing"?
+                              {data.taskType&&data.taskType==="Virtual-assistant"?<div className={`col-12 p-relative d-flex d-flex-column`}>
+                              <div className={cls} onClick={()=>setIsActive(!isActive)}>
+                                  <h5>{selected}</h5> 
+                                  <img src='/images/entypo_chevron-down.svg' alt="chevron-down-icon"/> 
+                              </div>
+                              {isActive && (
+                                  <div className={`p-absolute mt-12 bg-lighter-gray border-rounded-12 col-12 d-flex d-flex-column d-align-center`}>
+                                      {dropDownValues.map((item,index) =>(
+                                      <div key={index} className={`col-12 cursor gap-2`} onClick={()=>{
+                                          setSelected(item.value)
+                                          setIsActive(false)
+                                          setCls(item.class)}}>
+                                          <h5 className={`font-normal f-700 l-22 p-2 color-black`}>{item.value}</h5>
+                                      </div>
+                                      ))}
+                                  </div>
+                                )}
+                            </div>:
                               <>{data.status==="Unassigned"&&<button className={`btn-status-gray pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
                                 {data.status==="Not-started"&&<button className={`btn-status-red pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
                                 {data.status==="In-progress"&&<button className={`btn-status-green pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
                                 {data.status==="Completed"&&<button className={`btn-status-blue pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
                                 {data.status==="Request-revision"&&<button className={`btn-status-yellow pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
-                              </>:
-                              <div className={`col-12 p-relative d-flex d-flex-column`}>
-                                <div className={cls} onClick={()=>setIsActive(!isActive)}>
-                                    <h5>{selected}</h5> 
-                                    <img src='/images/entypo_chevron-down.svg' alt="chevron-down-icon"/> 
-                                </div>
-                                {isActive && (
-                                    <div className={`p-absolute mt-12 bg-lighter-gray border-rounded-12 col-12 d-flex d-flex-column d-align-center`}>
-                                        {dropDownValues.map((item,index) =>(
-                                        <div key={index} className={`col-12 cursor gap-2`} onClick={()=>{
-                                            setSelected(item.value)
-                                            setIsActive(false)
-                                            setCls(item.class)}}>
-                                            <h5 className={`font-normal f-700 l-22 p-2 color-black`}>{item.value}</h5>
-                                        </div>
-                                        ))}
-                                    </div>
-                                  )}
-                              </div>}
+                              </>
+                              }
                             </div>
                         </div>
                         <div className={`col-12 d-flex d-flex-row mb-6`}>

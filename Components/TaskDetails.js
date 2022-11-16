@@ -82,7 +82,7 @@ function TaskDetails() {
       .then(response => response.text())
       .then(result => {
         var res = JSON.parse(result);
-        console.log(res)
+        // console.log(res)
         setTitle(res.task.taskDetails.title)
         setCategory(res.task.taskDetails.category)
         setSubCategory(res.task.taskDetails.subCategory)

@@ -7,6 +7,7 @@ import {useRouter} from 'next/router'
 import Loader from './Loader'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AssistantActivity from './AssistantActivity';
 function AssistantDetails() {
   var token = getOnBoardFromCookie()
   const router = useRouter();
@@ -18,22 +19,12 @@ function AssistantDetails() {
   const[show, setShow]=useState(false)
   const fileInputRef = useRef();
   const fileInputRef1 = useRef();
-  const[image, setImage]=useState();
-  const[preview, setPreview]=useState("");
   const[url, setUrl]=useState("")
   const[profile,setProfile]=useState("")
+  const[activities,setActivities]=useState("")
+  const[screenshot,setScreenshot]=useState("")
   const[loading, setLoading]=useState(false)
-  useEffect(()=>{
-    if(image){
-      const reader = new FileReader();
-      reader.onloadend =() =>{
-         setPreview(reader.result);
-      }
-      reader.readAsDataURL(image);
-    }else{
-        setPreview(null);
-    }
-  }, [image])
+
   useEffect(()=>{
     setLoading(true)
     var myHeaders = new Headers();
@@ -71,7 +62,40 @@ function AssistantDetails() {
           toastId:"2"
       });
       });
+
+      var myHeaders = new Headers();
+      myHeaders.append("token", token);
+
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+
+      fetch(`http://34.209.233.51/api/assistant/task-activity/${Id}`, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          var res = JSON.parse(result);
+          // console.log(res.activity)
+          setActivities(res.activity)
+          setLoading(false)
+        })
+        .catch(error => {
+          setLoading(false)
+          toast.error(error.message,{
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            toastId:"2"
+          });
+        });
   },[])
+
   const editHandler=()=>{
     setEdit(true)
 }
@@ -208,6 +232,45 @@ const fileHandler=(e)=>{
       });
       });
   }
+}
+
+const screenshotHandler=(e)=>{
+    setLoading(true)
+    const file = e.target.files[0];
+    // console.log(e.target.files[0])
+    if(file&& file.type.substr(0,5)=== "image"){    
+        var formdata = new FormData();
+        formdata.append("type", "deliverables");
+        formdata.append("file", e.target.files[0], "[PROXY]");
+
+        var requestOptions = {
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow'
+        };
+
+        fetch("http://34.209.233.51/api/fileupload", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            var res = JSON.parse(result);
+            setScreenshot(res.url)
+            setLoading(false)
+        })
+        .catch(error => {
+            setLoading(false)
+            toast.error(error.message,{
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                toastId:"2"
+            });
+          });
+    }
 }
   return (
     <>
@@ -357,52 +420,18 @@ const fileHandler=(e)=>{
                 event.preventDefault();
                 fileInputRef.current.click();
                 }}>
-                {preview ? <img src={preview}/>:
+                {screenshot ? <img className={`deliverables`} src={screenshot}/>:
                     <div className={`col-12 d-flex d-flex-column d-align-center d-justify-center gap-3 pt-5 pb-5 bg-lighter-gray border-rounded-12`}>
                         <img src='/images/eva_file-add-fill.svg' alt='add-file-icon'/>
                         <h5 className={`f-700 l-22 color-gray`}>Select or Drag the Pictures here</h5>
                     </div>}
                 </div>
-                <input type="file" name='images' style={{display: 'none'}} ref={fileInputRef} accept='images/*' onChange={(event)=>{
-                    const file = event.target.files[0];
-                    if(file&& file.type.substr(0,5)=== "image"){
-                        setImage(file);
-                    }else{
-                        setImage(null);
-                    }
-                }}/>
+                <input type="file" name='images' style={{display: 'none'}} ref={fileInputRef} accept='images/*' onChange={screenshotHandler}/>
               </div>
             </div>
-            <div className={`col-11 d-flex d-flex-row d-align-start d-justify-space-between p-4 bg-white box-s border-rounded-12 mt-6`}>
-              <div className={`col-10 d-flex d-flex-column d-align-start gap-4`}>
-                <div className={`d-flex d-flex-row d-align-center gap-2`}>
-                    <img src='/images/eva_checkmark-circle-2-fill (1).svg' alt=''/>
-                    {/* <img src='/images/eva_checkmark-circle-2-fill (2).svg' alt=''/> */}
-                    <h3 className={`font-normal f-700 l-28 color-black text-ellipsis`}>Qui aut cumque animi a ipsam</h3>
-                </div>
-                <h5 className={`font-normal f-700 l-22 color-gray`}>20 Sept,21</h5>
-                <div className={`d-flex d-flex-row d-align-center gap-1`}>
-                  <h5 className={`font-normal f-700 l-22 color-black`}>Status:</h5>
-                  <button className={`btn-secondary-green`}>In progress</button>
-                </div>
-              </div>
-              <h3 className={`col-2 font-normal f-700 l-28 color-yellow`}>+ $232</h3>
-            </div>
-            <div className={`col-11 d-flex d-flex-row d-align-start d-justify-space-between p-4 box-s border-rounded-12 bg-white mt-6`}>
-              <div className={`col-10 d-flex d-flex-column d-align-start gap-4`}>
-                <div className={`d-flex d-flex-row d-align-center gap-2`}>
-                  {/* <img src='/images/eva_checkmark-circle-2-fill (1).svg' alt=''/> */}
-                  <img src='/images/eva_checkmark-circle-2-fill (2).svg' alt=''/>
-                  <h3 className={`font-normal f-700 l-28 color-black`}>Qui aut cumque animi a ipsam</h3>
-                </div>
-                <h5 className={`font-normal f-700 l-22 color-gray`}>20 Sept,21</h5>
-                <div className={`d-flex d-flex-row d-align-center gap-1`}>
-                  <h5 className={`font-normal f-700 l-22 color-black`}>Status:</h5>
-                  <button className={`btn-secondary-blue`}>Completed</button>
-                </div>
-              </div>
-              <h3 className={`col-2 font-normal f-700 l-28 color-yellow`}>+ $232</h3>
-            </div>
+              {activities && activities.map((item,index)=>(
+                <AssistantActivity key={index+1} item={item}/> 
+            ))}
           </div>
         </div>}
         <ToastContainer/>

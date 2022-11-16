@@ -425,7 +425,7 @@ function CreateTaskForm() {
                   event.preventDefault();
                   fileInputRef.current.click();
                   }}>
-                  {url ? <img src={url}/>:
+                  {url ? <img className={`deliverables`} src={url}/>:
                     <div className={`col-12 d-flex d-flex-column d-align-center d-justify-center gap-3 pt-5 pb-5 bg-lighter-gray border-rounded-12`}>
                         <img src='/images/eva_file-add-fill.svg' alt='add-file-icon'/>
                         <h5 className={`f-700 l-22 color-gray`}>Select or Drag the deliverables here</h5>
