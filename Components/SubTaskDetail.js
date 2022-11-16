@@ -7,7 +7,7 @@ import AddNewFieldContent from './AddNewFieldContent';
 import {useRouter} from 'next/router'
 import {getOnBoardFromCookie} from '../auth/userCookies';
 import NewItemModal from './NewItemModal'
-import NewITemModalContent from './NewItemModalContent'
+import NewItemModalContent from './NewItemModalContent'
 import Loader from './Loader';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -537,7 +537,7 @@ function SubTaskDetail() {
               </div>}
             </div>
             {addItem && <NewItemModal modalClass="modal-verify">
-                <NewITemModalContent handler={modalHandler} dataHandler={getChecklistElement}></NewITemModalContent>
+                <NewItemModalContent handler={modalHandler} dataHandler={getChecklistElement}></NewItemModalContent>
             </NewItemModal> }
             {open && <AddNewField modalClass="modal-verify">
                 <AddNewFieldContent handler={addNewHandler} dataHandler={getFieldHandler}></AddNewFieldContent>

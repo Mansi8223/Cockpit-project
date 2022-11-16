@@ -21,6 +21,7 @@ function AssistantDetails() {
   const[image, setImage]=useState();
   const[preview, setPreview]=useState("");
   const[url, setUrl]=useState("")
+  const[profile,setProfile]=useState("")
   const[loading, setLoading]=useState(false)
   useEffect(()=>{
     if(image){
@@ -51,6 +52,7 @@ function AssistantDetails() {
         // console.log(res.assistant)
         setName(res.assistant.user.name)
         setUrl(res.assistant.user.image)
+        setProfile(res.assistant.user.image)
         setTaskType(res.assistant.taskTypes)
         setData(res.assistant)
         setLoading(false)
@@ -285,8 +287,8 @@ const fileHandler=(e)=>{
                       </div>}
                   </div>
                 </form>:<>
-                {url ? <div className={`p-relative d-flex d-flex-row d-align-end mb-12`}>
-                          <img className={`w-100px h-100px d-flex d-justify-center border-circle`} src={url}/>
+                {profile ? <div className={`p-relative d-flex d-flex-row d-align-end mb-12`}>
+                          <img className={`w-100px h-100px d-flex d-justify-center border-circle`} src={profile}/>
                       {/* <div className={`p-absolute p-1 border-circle bg-white `}>
                           <div className={`pl-2 pt-2 pr-1 bg-white border-circle`}>
                               <img src='/images/eva_edit-2-fill (2).svg' alt='edit-icon-3'/>

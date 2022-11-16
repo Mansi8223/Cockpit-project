@@ -50,9 +50,18 @@ function ChatScreen({id,name,handler}) {
                 var res = JSON.parse(result);
                 // console.log(res)
                 setMessages(res.messages)
+                var element=document.getElementById("divmsg")
+                element.scrollTop = element.scrollHeight;
+                // window.scrollTo({
+                //     top: element.offsetTop,
+                //     behavior: 'smooth',
+                //   })
                 setUrl("")
             })
             .catch(error => console.log('error', error));
+
+            var ele = document.getElementById(id)
+            ele.classList.add('bg')
     },[id])
    
 
@@ -159,7 +168,7 @@ function ChatScreen({id,name,handler}) {
                     <h5 className={`font-normal text-uppercase f-700 l-22 color-gray`}>Agent</h5>
                 </div>
             </div>
-            <div id='divmsg' className={`${styles["msgs"]} col-12 d-flex d-flex-column gap-6 h-538 mt-2 mb-5 oy-scroll`}>
+            <div id='divmsg' className={`${styles["msgs"]} col-12 h-538 d-flex d-flex-column gap-6 mt-2 mb-5 oy-scroll`}>
                 {messages&&messages.map((item,index)=>(<>
                     {item.sendBy.userType==="admin"&&item.message&&<div className={`w-fit-content self-end pl-4 pr-4 pt-3 pb-3 bg-primary border-msg-s font-normal font-20 f-600 l-28 color-white`}>{item.message}</div>}
                     {item.sendBy.userType==="admin"&&item.media&&<img className={`${styles["img-msg"]} self-end`} src={item.media}/>}

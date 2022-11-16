@@ -149,7 +149,8 @@ function CreateTaskForm() {
   }
   const checkListDataHandler=(props)=>{
     var value = props.element
-    const data = {value}
+    var milestone = props.checked
+    const data = {value,milestone}
     // console.log(data)
     if(value){
       setChecklist((cl)=>[...cl,data])
@@ -399,7 +400,7 @@ function CreateTaskForm() {
               </div>
               <div className={`col-8 col-md-11 col-lg-10 col-xxl-9 d-flex d-flex-row d-align-start`}>
                 <h3 className={`col-4 font-normal f-700 l-28 color-black`}>Checklist</h3>
-                <div className={`col-7 d-flex d-flex-column gap-4`}>
+                <div className={`col-8 col-xl-9 col-xxl-8 d-flex d-flex-column gap-4`}>
                   {
                     checklist && checklist.map((c,index)=>(
                       <div key={index} className={`col-12 d-flex d-flex-row d-align-start d-justify-space-between`}>
@@ -407,7 +408,7 @@ function CreateTaskForm() {
                           <img src='images/feather_square.svg' alt='checkbox-icon'/>
                           <h3 className={`word-break f-600 l-28 color-gray`}>{c.value}</h3>
                         </div> 
-                        <h5 className={`col-4 col-md-5 col-lg-4 col-xxl-4 d-flex d-justify-center font-normal f-700 l-22 color-primary pt-1 pb-1 bg-secondary border-rounded-8 `}>Mark as milestone</h5>
+                        {c.milestone&&<h5 className={` d-flex d-justify-center font-normal f-700 l-22 color-primary pl-1 pr-1 pt-1 pb-1 bg-secondary border-rounded-8 `}>Marked as milestone</h5>}
                       </div>
                     ))
                   }
@@ -473,7 +474,7 @@ function CreateTaskForm() {
             </div>
           </form>
           {assign && <AddAssigneeModal modalClass="modal-verify">
-            <AddAssigneeModalContent handler={modalHandler} dataHandler={addAssigneeDataHandler}></AddAssigneeModalContent>
+            <AddAssigneeModalContent handler={modalHandler} dataHandler={addAssigneeDataHandler} title={title}></AddAssigneeModalContent>
           </AddAssigneeModal>}
           {addChecklist && <AddChecklistModal modalClass="modal-verify">
             <AddChecklistModalContent handler={checkListHandler} dataHandler={checkListDataHandler}></AddChecklistModalContent>

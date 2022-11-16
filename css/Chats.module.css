@@ -1,0 +1,7 @@
+.conversation-list{
+    height: 585px;
+    overflow-y: scroll;
+}
+.conversation-list::-webkit-scrollbar{
+    display: none;
+   }

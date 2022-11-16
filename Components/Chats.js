@@ -5,6 +5,7 @@ import {getOnBoardFromCookie} from '../auth/userCookies';
 import { useState } from 'react';
 import ChatCard from './ChatCard';
 import { Avatar } from '@material-ui/core'
+import styles from '../css/Chats.module.css'
 function Chats() {
     const[searchTerm,setSearchTerm]=useState("")
     const[users,setUsers]=useState("")
@@ -138,7 +139,7 @@ function Chats() {
         .catch(error => console.log('error', error));
     }
   return (
-    <div className={`col-11 d-flex d-flex-row d-align-start p-8 bg-white box-s mt-12 ml-7 border-rounded-16 mb-full`}>
+    <div className={`col-11 d-flex d-flex-row d-align-start p-8 bg-white box-s mt-12 ml-7 border-rounded-16 mb-5`}>
         <div className={`col-5 d-flex d-flex-column d-align-start`}>
             <div className={`col-12 d-flex d-flex-row d-align-center gap-10 mb-8 pr-2`}>
                 <div className={`d-flex d-flex-row d-align-center gap-1 border-bottom-primary`}>
@@ -168,11 +169,17 @@ function Chats() {
                     <ChatCard key={index+1} item={item} dataHandler={dataHandler}/>
                 ))}
             </div>:
-            <div className={`col-11 d-flex d-flex-column d-align-center`}>
+            <div className={`${styles["conversation-list"]} col-11 d-flex d-flex-column d-align-center`}>
                 {convo&&convo.map((item,index)=>(
-                    <div key={index+1} onClick={()=>{
+                    <div key={index+1} id={item._id} onClick={()=>{
                         setId(item._id)
                         setActiveChat(true)
+                        if(id){
+                            var ele = document.getElementById(id)
+                            if(ele.classList.contains('bg')){
+                                ele.classList.remove('bg')
+                        }
+                        }
                         if(item.user1&&item.user2)setName(item.user1.name +","+ item.user2.name)
                         else if(item.user1)setName(item.user1.name)
                     }} className={`col-11 d-flex d-flex-row d-align-start d-justify-space-between pl-4 pr-4 pt-3 pb-3 mb-4 border-rounded-16 border4-lighter-gray`}>

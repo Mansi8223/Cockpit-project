@@ -108,12 +108,12 @@ function AddAssigneeModalContent(props) {
                 <h3 className={`f-700 l-28 color-black`}>Title of task:</h3>
                 <h3 className={`f-600 l-28 color-gray`}>{props.title}</h3>
                 </div>
-                <div className={`col-12 d-flex d-flex-column d-align-start gap-4 mb-6`}>
-                    <div className={`col-9 d-flex d-flex-row d-align-center gap-2 border-light-gray border-rounded-4 pl-3 pr-2 bg-lighter-gray`}>
+                <div className={`col-12  modal-filter d-flex d-flex-column d-align-start gap-4 mb-6`}>
+                    <div className={`col-9 col-md-9 col-xxl-8 d-flex d-flex-row d-align-center gap-2 border-light-gray border-rounded-4 pl-3 pr-2 bg-lighter-gray`}>
                         <img src='/images/eva_search-fill.svg' alt='search-icon'/>
                         <input className={`search-input h-40 border-none bg-lighter-gray f-700 font-16 l-22`} type='text' placeholder='Search' value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)}/>
                     </div>
-                    <div className={`col-md-9 col-xl-8 col-xxl-8 p-relative d-flex d-flex-column bg-white`}>
+                    <div className={`col-md-8 col-lg-7 col-xl-6 p-relative d-flex d-flex-column bg-white`}>
                         <div className={`col-11 p-relative  d-flex d-flex-row d-align-center d-justify-center h-40 pl-2 pr-2 word-break gap-2 f-700 l-22 border-light-gray border-rounded-8`}onClick={()=>setIsActive(!isActive)}>
                             <h5>Employee Type:</h5>
                             <h5>{selected}</h5> 

@@ -42,6 +42,7 @@ function ClientDetails() {
     // const[image, setImage]=useState();
     // const[preview, setPreview]=useState("");
     const[url, setUrl]=useState("")
+    const[profile,setProfile]=useState("")
     const[loading,setLoading]=useState(false)
     // useEffect(()=>{
     //     if(image){
@@ -73,6 +74,7 @@ function ClientDetails() {
             if(res.client.user)setName(res.client.user.name)
             setNotes(res.client.notes)
             setUrl(res.client.user.image)
+            setProfile(res.client.user.image)
             if(res.client.passwords)setPasswords(res.client.passwords)
             if(res.client.user)setUser(res.client.user)
             if(res.client.favrouriteTasks)setFavouriteTask(res.client.favrouriteTasks)
@@ -392,9 +394,9 @@ function ClientDetails() {
                                     </div>
                                 </div>
                             </form>:<>
-                                {url ? 
+                                {profile ? 
                                         <div className={`p-relative d-flex d-flex-row d-align-end mb-12`}>
-                                                <img className={`w-100px h-100px d-flex d-justify-center border-circle`} src={url}/>
+                                                <img className={`w-100px h-100px d-flex d-justify-center border-circle`} src={profile}/>
                                             {/* <div className={`p-absolute p-1 border-circle bg-white `}>
                                                 <div className={`pl-2 pt-2 pr-1 bg-white border-circle`}>
                                                     <img src='/images/eva_edit-2-fill (2).svg' alt='edit-icon-3'/>

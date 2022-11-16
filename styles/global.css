@@ -49,6 +49,9 @@ body {
  .w-fit-content{
   width: fit-content;
  }
+ .w-max-content{
+  width: max-content;
+ }
  .w-inherit{
   width: inherit;
  }
@@ -85,7 +88,7 @@ body {
   height: 30rem;
 }
 .h-538{
-  height:clamp(32.625rem, 31.9583rem + 1.3889vw, 33.625rem);
+  height:538px;
 }
 .h-1000{
   height: 1000px;
@@ -788,7 +791,12 @@ input:checked + .slider:before{
 }
 
 .deliverables{
-  width: 300px;
-  height: 180px;
+  width: 250px;
+  height: 150px;
   border-radius: 12px;
+}
+
+.bg{
+  background-color: var(--secondary);
+  border: 3px solid var(--tertiary);
 }

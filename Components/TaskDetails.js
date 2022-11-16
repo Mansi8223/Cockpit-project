@@ -8,7 +8,7 @@ import ModalContent from './ModalContent';
 import AddNewField from './AddNewField';
 import AddNewFieldContent from './AddNewFieldContent';
 import NewItemModal from './NewItemModal'
-import NewITemModalContent from './NewItemModalContent'
+import NewItemModalContent from './NewItemModalContent'
 import EditTasksFields from './EditTasksFields';
 import {getOnBoardFromCookie} from '../auth/userCookies';
 import {useRouter} from 'next/router'
@@ -63,6 +63,7 @@ function TaskDetails() {
   const[newFields, setNewFields]=useState("")
   const[cl,setCl]=useState("")
   const[image,setImage]=useState(false)
+  const[deliverables,setDeliverables]=useState("")
   const[loading, setLoading]=useState(false)
   var token = getOnBoardFromCookie()
   const router = useRouter();
@@ -81,7 +82,7 @@ function TaskDetails() {
       .then(response => response.text())
       .then(result => {
         var res = JSON.parse(result);
-        // console.log(res)
+        console.log(res)
         setTitle(res.task.taskDetails.title)
         setCategory(res.task.taskDetails.category)
         setSubCategory(res.task.taskDetails.subCategory)
@@ -91,6 +92,7 @@ function TaskDetails() {
         setUrl(res.task.taskDetails.propertyPhoto)
         setData(res.task);
         setDetails(res.task.taskDetails);
+        setDeliverables(res.task.deliverables)
         setCl(res.task.taskDetails.checklist)
         setChecklist(res.task.taskDetails.checklist)
         setNewFields(res.task.taskDetails.addNewFields)
@@ -306,7 +308,7 @@ function TaskDetails() {
     fetch(`http://34.209.233.51/api/task/add-deliverables/${Id}`, requestOptions)
       .then(response => response.text())
       .then(result => {
-        console.log(result)
+        // console.log(result)
         setPre("")
         setLoading(false)
       })
@@ -347,6 +349,20 @@ function TaskDetails() {
     setEdit(false)
   }
   const submitHandler=(e)=>{
+    
+    let dynamicArray = []
+
+    document.querySelectorAll(".dynamic_field").forEach(item => {
+      // console.log(item.getAttribute("value"))
+      // console.log(item.value)
+      let obj = {
+        "key": item.getAttribute("datakey"),
+        "value": item.value
+      }
+      dynamicArray.push(obj)
+    })
+    console.log(dynamicArray)
+
     setLoading(true)
     e.preventDefault()
     var myHeaders = new Headers();
@@ -362,7 +378,7 @@ function TaskDetails() {
       "showingLocation": showingLocation,
       "propertyPhoto": url,
       "showingDetails": showingDetails,
-      "addNewFields": newFields
+      "addNewFields": dynamicArray
     });
     
     var requestOptions = {
@@ -401,7 +417,7 @@ function TaskDetails() {
         .then(response => response.text())
         .then(result => {
           var res = JSON.parse(result);
-          console.log(res)
+          // console.log(res)
           setTitle(res.task.taskDetails.title)
           setCategory(res.task.taskDetails.category)
           setSubCategory(res.task.taskDetails.subCategory)
@@ -555,11 +571,11 @@ const videoHandler=(e)=>{
                 <textarea className={`col-7 h-80 color-gray pl-4 pt-2 pb-2 pr-4 border-rounded-4 border-light-gray`} value={description} onChange={descriptionHandler}/>
               </div>
               {newFields && newFields.map((item,index)=>(
-                // <EditTasksFields key={index+1} item={item}/>
-                <div key={index+1} className={`col-12 d-flex d-flex-row mb-6`}>
-                  <h3 className={`col-5 f-700 l-28 color-black`}>{item.key}</h3>
-                  <h3 className={`col-7 f-600 l-28 color-gray`}>{item.value}</h3>
-                </div>
+                <EditTasksFields key={index+1} item={item} count={index}/>
+                // <div key={index+1} className={`col-12 d-flex d-flex-row mb-6`}>
+                //   <h3 className={`col-5 f-700 l-28 color-black`}>{item.key}</h3>
+                //   <h3 className={`col-7 f-600 l-28 color-gray`}>{item.value}</h3>
+                // </div>
               ))}
               <div className={`col-12 d-flex d-flex-row mb-6`}>
                 <h3 className={`col-5 f-700 l-28 color-black`}>Checklist</h3>
@@ -749,10 +765,17 @@ const videoHandler=(e)=>{
                   </div>:
                     <input className={`col-3 col-md-2 col-xl-4 col-xxl-3 bg-lighter-gray border-none pl-4 pr-3 d-flex border-circle`} type='date' name='date-time' value={date} onChange={(e)=>setDate(e.target.value)}/>}
                 </div>
+                {deliverables?<div className={`col-12 d-flex d-flex-row mb-6`}>
+                  <h3 className={`col-5 f-700 l-28 color-black`}>Deliverables</h3>
+                  <div className={`col-7 d-flex d-flex-column d-align-start gap-2 `}>
+                    {deliverables.map((item,index)=>(<img key={index+1} className={`deliverables`} src={item}></img>
+                    ))}
+                  </div>
+                </div>:
                 <div className={`col-12 d-flex d-flex-row`}>
                   <h3 className={`col-5 f-700 l-28 color-black`}>Deliverables</h3>
                   <h3 className={`col-7 f-600 l-28 color-gray`}>Video files showcasing clients and house</h3>
-                </div>
+                </div>}
                 <div className={`col-12 d-flex d-flex-row mt-6`}>
                   <h3 className={`col-5 f-700 l-28 color-black`}>Upload deliverables</h3>
                   <div className={`col-5 col-xl-6 col-xxl-5`}>
@@ -800,7 +823,7 @@ const videoHandler=(e)=>{
             <ModalContent handler={modalHandler} id={Id} title={data.taskName}></ModalContent>
           </Modal>}
           {addItem && <NewItemModal modalClass="modal-verify">
-                <NewITemModalContent handler={checklistHandler} dataHandler={getChecklistElement}></NewITemModalContent>
+                <NewItemModalContent handler={checklistHandler} dataHandler={getChecklistElement}></NewItemModalContent>
             </NewItemModal> }
           {open && <AddNewField modalClass="modal-verify">
                 <AddNewFieldContent handler={addNewHandler} dataHandler={getFieldHandler}></AddNewFieldContent>

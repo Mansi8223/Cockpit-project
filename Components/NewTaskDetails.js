@@ -10,7 +10,7 @@ import RejectModalContent from './RejectModalContent'
 import AddNewField from './AddNewField';
 import AddNewFieldContent from './AddNewFieldContent';
 import NewItemModal from './NewItemModal'
-import NewITemModalContent from './NewItemModalContent'
+import NewItemModalContent from './NewItemModalContent'
 import EditTasksFields from './EditTasksFields';
 import {getOnBoardFromCookie} from '../auth/userCookies';
 import {useRouter} from 'next/router'
@@ -550,7 +550,7 @@ const deliverableHandler=()=>{
   fetch(`http://34.209.233.51/api/task/add-deliverables/${Id}`, requestOptions)
     .then(response => response.text())
     .then(result => {
-      console.log(result)
+      // console.log(result)
       setPre("")
       setLoading(false)
     })
@@ -879,7 +879,7 @@ const deliverableHandler=()=>{
                 <RejectModalContent handler={rejectHandler} id={Id}></RejectModalContent>
             </RejectModal>}
             {addItem && <NewItemModal modalClass="modal-verify">
-                <NewITemModalContent handler={checklistHandler} dataHandler={getChecklistElement}></NewITemModalContent>
+                <NewItemModalContent handler={checklistHandler} dataHandler={getChecklistElement}></NewItemModalContent>
             </NewItemModal> }
             {open && <AddNewField modalClass="modal-verify">
                 <AddNewFieldContent handler={addNewHandler} dataHandler={getFieldHandler}></AddNewFieldContent>

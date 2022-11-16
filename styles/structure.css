@@ -625,7 +625,12 @@ Breakpoints
     .addNew{
         width: 131px;
     }
+    .modal-filter{
+        display: flex;
+        flex-direction: row;
+    }
 }
+
 /* sidebar-hamburger */
 @media screen  and (min-width:359.98px){
     .sidebar{

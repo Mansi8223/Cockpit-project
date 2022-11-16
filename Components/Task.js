@@ -303,11 +303,11 @@ function Task() {
                         </div>
                     </Link>
                 </div> 
-                <div className={`col-12 wrap-xxl d-flex d-flex-column gap-2 ml-5 mr-5 pr-1`}>
-                    <div className={`col-12 d-flex d-flex-row d-align-start gap-3 pr-9`}>
-                        <div className={`col-4 p-relative d-flex d-flex-column d-align-center bg-white`}>
-                            <div className={`col-11 d-flex d-flex-row d-align-center d-justify-space-between h-40 pl-1 pr-1 word-break f-700 l-22 border-light-gray border-rounded-8`}onClick={()=>setIsActive(!isActive)}>
-                                <div className={`col-11 d-flex d-flex-row d-align-center gap-2 d-justify-center`}>
+                <div className={`col-12 wrap-xxl d-flex d-flex-column gap-2 ml-5 mr-5`}>
+                    <div className={`col-12 d-flex d-flex-row d-align-start gap-8`}>
+                        <div className={`w-max-content p-relative d-flex d-flex-column d-align-center bg-white`}>
+                            <div className={`w-max-content d-flex d-flex-row d-align-center d-justify-space-between h-40 pl-4 pr-4 word-break f-700 l-22 border-light-gray border-rounded-8`}onClick={()=>setIsActive(!isActive)}>
+                                <div className={` d-flex d-flex-row d-align-center gap-2 d-justify-center`}>
                                     <h5>Employee Type:</h5>
                                     <h5>{selected}</h5>
                                 </div> 
@@ -327,9 +327,9 @@ function Task() {
                                 </div>
                             )}
                         </div>
-                        <div className={`col-3 p-relative d-flex d-flex-column bg-white`}>
-                            <div className={`col-11 d-flex d-flex-row d-align-center d-justify-space-between h-40 pl-1 pr-1 word-break f-700 l-22 border-light-gray border-rounded-8`}onClick={()=>setActiveTime(!activeTime)}>
-                                <div className={`col-11 d-flex d-flex-row d-align-center gap-2 d-justify-center`}>
+                        <div className={`col-3 col-md-3 col-lg-3 col-xl-3 col-xxl-2 p-relative d-flex d-flex-column d-align-center bg-white`}>
+                            <div className={`col-12 d-flex d-flex-row d-align-center d-justify-space-between h-40 pl-4 pr-4 word-break f-700 l-22 border-light-gray border-rounded-8`}onClick={()=>setActiveTime(!activeTime)}>
+                                <div className={`d-flex d-flex-row d-align-center gap-2 d-justify-center`}>
                                 <h5>Time:</h5>
                                 <h5>{time}</h5>
                                 </div>
@@ -349,9 +349,9 @@ function Task() {
                                 </div>
                             )}
                         </div>
-                        <div className={`col-3 p-relative d-flex d-flex-column bg-white `}>
-                            <div className={`col-11 d-flex d-flex-row d-align-center d-justify-space-between h-40 pl-1 pr-1 word-break f-700 l-22 border-light-gray border-rounded-8`}onClick={()=>setActiveDeadline(!activedeadline)}>
-                                <div className={`col-11 d-flex d-flex-row d-align-center gap-2 d-justify-center`}>
+                        <div className={`w-max-content p-relative d-flex d-flex-column d-align-center bg-white `}>
+                            <div className={`w-max-content d-flex d-flex-row d-align-center d-justify-space-between h-40 pl-4 pr-4 word-break f-700 l-22 border-light-gray border-rounded-8`}onClick={()=>setActiveDeadline(!activedeadline)}>
+                                <div className={`d-flex d-flex-row d-align-center gap-2 d-justify-center`}>
                                     <h5>Deadline:</h5>
                                     <h5>{deadline}</h5> 
                                 </div>
@@ -392,7 +392,7 @@ function Task() {
                             )}
                         </div> */}
                     </div>
-                    <div className={`col-5 d-flex d-flex-row gap-3 ml-3`}>
+                    <div className={`col-5 d-flex d-flex-row  gap-3 `}>
                         <div className={`col-9 d-flex d-flex-row d-align-center gap-2 border-light-gray border-rounded-8 pl-3 pr-2 bg-lighter-gray`}>
                             <img src='/images/eva_search-fill.svg' alt='search-icon'/>
                             <input className={`search-input h-40 border-none bg-lighter-gray f-700 font-16 l-22`} type='text' value={searchTerm} placeholder='Search' onChange={(e)=>setSearchTerm(e.target.value)}/>

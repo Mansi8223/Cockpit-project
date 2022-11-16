@@ -140,16 +140,16 @@ function Templates() {
                     </div> 
                     <h3 className={`ml-5 mb-5 font-normal f-700 l-28`}>All tasks</h3>
                     <div className={`col-12 d-flex d-flex-row d-align-center d-justify-space-between gap-2 ml-5 mr-5 pr-1`}>
-                        <div className={`col-3 p-relative d-flex d-flex-column d-align-center bg-white`}>
-                            <div className={`col-11 d-flex d-flex-row d-align-center d-justify-space-between h-40 pl-1 pr-1 word-break f-700 l-22 border-light-gray border-rounded-8`}onClick={()=>setIsActive(!isActive)}>
-                                <div className={`col-11 d-flex d-flex-row d-align-center gap-2 d-justify-center`}>
+                        <div className={`w-max-content p-relative d-flex d-flex-column d-align-center bg-white`}>
+                            <div className={`w-max-content d-flex d-flex-row d-align-center d-justify-space-between h-40 pl-4 pr-4 word-break f-700 l-22 border-light-gray border-rounded-8`}onClick={()=>setIsActive(!isActive)}>
+                                <div className={`d-flex d-flex-row d-align-center gap-2 d-justify-center`}>
                                     <h5>Employee Type:</h5>
                                     <h5>{selected}</h5>
                                 </div> 
                                 <img src='/images/feather_chevron-down.png'/> 
                             </div>
                             {isActive && (
-                                <div className={`col-11 p-absolute z-index-popup mt-12 d-flex d-flex-column d-align-center bg-lighter-gray border-rounded-12`}>
+                                <div className={`col-12 p-absolute z-index-popup mt-12 d-flex d-flex-column d-align-center bg-lighter-gray border-rounded-12`}>
                                     {types.map((type,index) =>(
                                     <div key={index} className={`cursor gap-2 f-700 l-22 p-1`} onClick={()=>{
                                         setSelected(type)
