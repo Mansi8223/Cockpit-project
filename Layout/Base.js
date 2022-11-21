@@ -1,9 +1,10 @@
 import React from 'react'
 import Header from '../Components/Header'
 import Sidebar from '../Components/Sidebar'
+
 function Base(props) {
   return (
-    <div className="d-flex d-flex-column">
+    <div className="p-relative d-flex d-flex-column">
         <Header></Header>
         <div className="d-flex">
           <Sidebar></Sidebar>

@@ -182,7 +182,7 @@ function ShowingAssis() {
                     <div className={` col-12 d-flex d-flex-row d-align-center d-justify-space-between m-3`}>
                         <span className={`font-normal font-31 f-700 l-40 color-black cursor`}>Showing Assistants</span>
                         <Link href='/AddNewAssistant'>
-                            <div className={`col-md-4 create-task d-flex d-flex-row d-align-center d-justify-center pt-4 pb-4 gap-2 bg-primary border-circle cursor`}>
+                            <div className={`d-flex d-flex-row d-align-center d-justify-center pl-6 pr-5 pt-4 pb-4 gap-2 bg-primary border-circle cursor`}>
                                 <img src='/images/eva_plus-fill.png'/>
                                 <h4 className={`f-700 l-22 color-white`}>Add new assistant</h4>
                             </div>

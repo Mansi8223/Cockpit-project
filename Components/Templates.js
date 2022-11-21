@@ -132,7 +132,7 @@ function Templates() {
                             <h2 className={`f-700 l-40 color-black cursor border-bottom-primary`}>Templates</h2>
                         </div>
                         <Link href='/CreateTask'>
-                            <div className={`col-md-3 create-task d-flex d-flex-row d-align-center d-justify-center pt-4 pb-4 gap-2 bg-primary border-circle cursor`}>
+                            <div className={`d-flex d-flex-row d-align-center d-justify-center pl-6 pr-5 pt-4 pb-4 gap-2 bg-primary border-circle cursor`}>
                                 <img src='/images/eva_plus-fill.png'/>
                                 <h4 className={`f-700 l-22 color-white`}>Create new task</h4>
                             </div>

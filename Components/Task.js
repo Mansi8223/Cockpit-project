@@ -297,7 +297,7 @@ function Task() {
                         <Link href='/Template'><h2 className={`f-700 l-40 cursor color-light-gray`}>Templates</h2></Link>
                     </div>
                     <Link href='/CreateTask'>
-                        <div className={`col-md-3 create-task d-flex d-flex-row d-align-center d-justify-center pt-4 pb-4 gap-2 bg-primary border-circle cursor`}>
+                        <div className={`d-flex d-flex-row d-align-center d-justify-center pl-6 pr-5 pt-4 pb-4 gap-2 bg-primary border-circle cursor`}>
                             <img src='/images/eva_plus-fill.png'/>
                             <h4 className={`f-700 l-22 color-white`}>Create new task</h4>
                         </div>
@@ -327,13 +327,13 @@ function Task() {
                                 </div>
                             )}
                         </div>
-                        <div className={`col-3 col-md-3 col-lg-3 col-xl-3 col-xxl-2 p-relative d-flex d-flex-column d-align-center bg-white`}>
-                            <div className={`col-12 d-flex d-flex-row d-align-center d-justify-space-between h-40 pl-4 pr-4 word-break f-700 l-22 border-light-gray border-rounded-8`}onClick={()=>setActiveTime(!activeTime)}>
-                                <div className={`d-flex d-flex-row d-align-center gap-2 d-justify-center`}>
+                        <div className={`w-max-content p-relative d-flex d-flex-column d-align-center bg-white`}>
+                            <div className={`col-12 d-flex d-flex-row d-align-center d-justify-space-between h-40 pl-4 pr-4 word-break f-700 l-22 border-light-gray border-rounded-8`} onClick={()=>setActiveTime(!activeTime)}>
                                 <h5>Time:</h5>
-                                <h5>{time}</h5>
+                                <div className={`d-flex d-flex-row d-align-center gap-2`}>  
+                                    <h5>{time}</h5>
+                                    <img src='/images/feather_chevron-down.png'/> 
                                 </div>
-                                <img src='/images/feather_chevron-down.png'/> 
                             </div>
                             {activeTime && (
                                 <div className={`col-12 p-absolute z-index-popup mt-12 d-flex d-flex-column d-align-center bg-lighter-gray border-rounded-12`}>

@@ -411,9 +411,9 @@ const screenshotHandler=(e)=>{
                 </div>
             </div>
           </div>
-          <div className={`col-5 col-md-10 col-lg-10 col-xl-5 d-flex d-flex-column d-align-start bg-white box-s border-rounded-16 p-8 h-fit-content`}>
-            <span className={`font-normal font-31 f-700 l-40 mb-8`}>Tasks activity</span>
-            <div className={`col-12 d-flex d-flex-row mb-6`}>
+          <div className={`col-5 col-md-10 col-lg-10 col-xl-5 d-flex d-flex-column bg-white box-s border-rounded-16 p-8 h-fit-content`}>
+            <span className={`self-start font-normal font-31 f-700 l-40 mb-8`}>Tasks activity</span>
+            {/* <div className={`col-12 d-flex d-flex-row mb-6`}>
               <h3 className={`col-5 f-700 l-28 color-black`}>Upload screenshots</h3>
               <div className={`col-6 col-lg-4 col-xl-7 col-xxl-6`}>
                 <div onClick={(event)=>{
@@ -428,10 +428,12 @@ const screenshotHandler=(e)=>{
                 </div>
                 <input type="file" name='images' style={{display: 'none'}} ref={fileInputRef} accept='images/*' onChange={screenshotHandler}/>
               </div>
-            </div>
+            </div> */}
+            <div className={`d-flex d-flex-column d-align-center`}>
               {activities && activities.map((item,index)=>(
                 <AssistantActivity key={index+1} item={item}/> 
             ))}
+            </div>
           </div>
         </div>}
         <ToastContainer/>

@@ -82,7 +82,6 @@ function TaskDetails() {
       .then(response => response.text())
       .then(result => {
         var res = JSON.parse(result);
-        // console.log(res)
         setTitle(res.task.taskDetails.title)
         setCategory(res.task.taskDetails.category)
         setSubCategory(res.task.taskDetails.subCategory)
@@ -174,6 +173,7 @@ function TaskDetails() {
         setData(res.task);
         setDetails(res.task.taskDetails);
         setCl(res.task.taskDetails.checklist)
+        setDeliverables(res.task.deliverables)
         setChecklist(res.task.taskDetails.checklist)
         setNewFields(res.task.taskDetails.addNewFields)
         setEdit(true)
@@ -361,7 +361,7 @@ function TaskDetails() {
       }
       dynamicArray.push(obj)
     })
-    console.log(dynamicArray)
+    // console.log(dynamicArray)
 
     setLoading(true)
     e.preventDefault()
@@ -427,6 +427,7 @@ function TaskDetails() {
           setUrl(res.task.taskDetails.propertyPhoto)
           setData(res.task);
           setDetails(res.task.taskDetails);
+          setDeliverables(res.task.deliverables)
           setCl(res.task.taskDetails.checklist)
           setChecklist(res.task.taskDetails.checklist)
           setNewFields(res.task.taskDetails.addNewFields)
@@ -705,14 +706,7 @@ const videoHandler=(e)=>{
                   <div className={`col-7 mr-5 font-31 f-700 l-40`}>Assignees & Timeline</div>
                   <div className={`col-7 col-md-5 col-lg-4 col-xl-7 d-flex d-flex-row d-align-center`}>
                     <h3 className={`ml-12 mr-5 f-600 l-20`}>Status:</h3>
-                    {data.assignee&&data.assignee.assistantType==="showing"?
-                    <>{data.status==="Unassigned"&&<button className={`btn-status-gray pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
-                      {data.status==="Not-started"&&<button className={`btn-status-red pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
-                      {data.status==="In-progress"&&<button className={`btn-status-green pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
-                      {data.status==="Completed"&&<button className={`btn-status-blue pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
-                      {data.status==="Request-revision"&&<button className={`btn-status-yellow pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
-                    </>:
-                    <div className={`col-12 p-relative d-flex d-flex-column`}>
+                    {data.taskType&&data.taskType==="Virtual-assistant"?<div className={`col-12 p-relative d-flex d-flex-column`}>
                       <div className={cls} onClick={()=>setIsActive(!isActive)}>
                           <h5>{selected}</h5> 
                           <img src='/images/entypo_chevron-down.svg' alt="chevron-down-icon"/> 
@@ -729,7 +723,14 @@ const videoHandler=(e)=>{
                               ))}
                           </div>
                         )}
-                    </div>}
+                    </div>:
+                      <>{data.status==="Unassigned"&&<button className={`btn-status-gray pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
+                        {data.status==="Not-started"&&<button className={`btn-status-red pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
+                        {data.status==="In-progress"&&<button className={`btn-status-green pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
+                        {data.status==="Completed"&&<button className={`btn-status-blue pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
+                        {data.status==="Request-revision"&&<button className={`btn-status-yellow pl-5 pt-2 pb-2 pr-5`}>{data.status}</button>}
+                      </>
+                    }
                   </div>
                 </div>
                 <div className={`col-12 d-flex d-flex-row mb-6`}>
@@ -776,7 +777,7 @@ const videoHandler=(e)=>{
                   <h3 className={`col-5 f-700 l-28 color-black`}>Deliverables</h3>
                   <h3 className={`col-7 f-600 l-28 color-gray`}>Video files showcasing clients and house</h3>
                 </div>}
-                <div className={`col-12 d-flex d-flex-row mt-6`}>
+                {data.taskType&&data.taskType==="Virtual-assistant"&&<div className={`col-12 d-flex d-flex-row mt-6`}>
                   <h3 className={`col-5 f-700 l-28 color-black`}>Upload deliverables</h3>
                   <div className={`col-5 col-xl-6 col-xxl-5`}>
                     <div className={`col-12`} >
@@ -796,7 +797,7 @@ const videoHandler=(e)=>{
                     </div>
                     {pre&&<button onClick={deliverableHandler} className={`border-none font-normal font-16 f-600 l-28 color-primary bg-secondary border-rounded-8 cursor`}>Upload</button>}
                   </div>
-                </div>
+                </div>}
               </div>
               <div className={`col-12 d-flex d-flex-column p-8 bg-white border-light-gray border-rounded-16 box-s`}>
                 <div className={`font-31 f-700 l-40 mb-6`}>Activity</div>
@@ -810,7 +811,7 @@ const videoHandler=(e)=>{
                         {item.activityType && item.activityType==="completed" && <img src='/images/eva_checkmark-circle-2-fill.svg' alt='checkmark-icon'/>}
                         {item.activityType && item.activityType==="request" && <img src='/images/eva_question-mark-circle-fill.svg' alt='question-mark-icon'/>}
                         {item.activityType && item.activityType==="started" && <img src='/images/feather_play-circle.svg' alt='play-icon'/>}
-                        <h3 className={`f-700 l-28`}>{item.activity} Jake Mentose</h3>
+                        <h3 className={`f-700 l-28`}>{item.activity}</h3>
                       </div>
                       <h5 className={`f-700 l-22 color-gray`}>{item.date.split("GMT")[0].slice(0,15).replace(" ",", ")}</h5>
                     </div>

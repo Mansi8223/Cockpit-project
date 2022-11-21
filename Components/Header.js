@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function Header() {
   const[active, setActive]=useState(false)
   const[isActive, setIsActive]=useState(false)
+  const[notification,setNotification]=useState("")
   const[edit, setEdit]=useState(false)
   const[data, setData]=useState("")
   const[user, setUser]=useState("")
@@ -88,6 +89,41 @@ function Header() {
         });
       })
   },[])
+
+useEffect(()=>{
+  var myHeaders = new Headers();
+        myHeaders.append("token", token);
+
+        var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
+
+        fetch("http://34.209.233.51/api/chat/all-notification", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            var res = JSON.parse(result);
+            console.log(res)
+            setNotification(res.notification)
+            setLoading(false)
+        })
+        .catch(error => {
+          setLoading(false)
+          toast.error(error.message,{
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            toastId:"2"
+          });
+      });
+},[])
+
   const myElement=(e)=>{
     var element=document.getElementById("sb")
     element.classList.remove('sidebar')
@@ -224,6 +260,16 @@ function Header() {
                     <h3 className={`font-normal f-700 l-28 color-black`}>Notifications</h3>
                     <span onClick={markReadHandler} className='font-13 f-700 l-18 color-primary text-uppercase cursor'>Mark all as read</span>
                   </div>
+                  {notification && notification.map((item,index)=>(
+                    <div key={index+1} className={`d-flex d-flex-row d-align-start gap-2 mt-5 pb-4 border-bottom-gray`} >
+                      <img src='/images/feather_plus-circle (1).svg' alt='plus-circle-icon'/>
+                      <div className={`d-flex d-flex-column d-align-start`}>
+                        <h3 className={`font-normal f-600 l-28 color-black mt-1`}>{item.title}</h3>
+                        <h5 className={`font-normal f-400 l-22 color-black`}>{item.body}</h5>
+                        <span className={`font-normal font-13 f-700 l-18 color-gray`}>{item.createdAt.split("T")[0] + ", " + item.createdAt.split("T")[1].split(".")[0].split(":")[0]+ ":" + item.createdAt.split("T")[1].split(".")[0].split(":")[1] }</span>
+                      </div>
+                    </div>
+                  ))}
                   {data && data.map((item,index)=>(
                     <div key={index+1} 
                       onClick={()=>{notif_id = item._id

@@ -6,6 +6,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import styles from '../css/ChatScreen.module.css'
 import {getOnBoardFromCookie} from '../auth/userCookies';
 import { useEffect } from 'react';
+import Loader from './Loader';
+
 function ChatScreen({id,name,handler}) {
     var token = getOnBoardFromCookie()
     const fileInputRef = useRef();
@@ -13,28 +15,14 @@ function ChatScreen({id,name,handler}) {
     const[text,setText]=useState("")
     const[url, setUrl]=useState()
     const[type,setType]=useState("")
-    const[count,setCount]=useState("")
-    // useEffect(()=>{
-    //     console.log('chat screen')
-    //     var myHeaders = new Headers();
-    //     myHeaders.append("token", token);
+    const[loading,setLoading]=useState(false)
 
-    //     var requestOptions = {
-    //     method: 'GET',
-    //     headers: myHeaders,
-    //     redirect: 'follow'
-    //     };
-
-    //     fetch(`http://34.209.233.51/api/chat/all-message/${id}`, requestOptions)
-    //     .then(response => response.text())
-    //     .then(result => {
-    //         var res = JSON.parse(result);
-    //         console.log(res)
-    //         setMessages(res.messages)
-    //     })
-    //     .catch(error => console.log('error', error));
-    // },[])
     useEffect(()=>{
+            var ele = document.getElementById(id)
+            ele.classList.add('bg')
+            
+            setLoading(true)
+
             var myHeaders = new Headers();
             myHeaders.append("token", token);
     
@@ -50,18 +38,27 @@ function ChatScreen({id,name,handler}) {
                 var res = JSON.parse(result);
                 // console.log(res)
                 setMessages(res.messages)
+                
                 var element=document.getElementById("divmsg")
                 element.scrollTop = element.scrollHeight;
-                // window.scrollTo({
-                //     top: element.offsetTop,
-                //     behavior: 'smooth',
-                //   })
+                
+                setLoading(false)
                 setUrl("")
             })
-            .catch(error => console.log('error', error));
-
-            var ele = document.getElementById(id)
-            ele.classList.add('bg')
+            .catch(error =>{ 
+                setLoading(false)
+                toast.error(error.message,{
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    toastId:"2"
+                  });
+            });
     },[id])
    
 
@@ -69,6 +66,7 @@ function ChatScreen({id,name,handler}) {
     const textHandler=(e)=>setText(e.target.value)
 
     const fileHandler=(e)=>{
+        setLoading(true)
         const file = e.target.files[0];
         if(file){
             var formdata = new FormData();
@@ -89,8 +87,10 @@ function ChatScreen({id,name,handler}) {
                 setUrl(res.url)
                 // console.log(file.type.split('/')[0])
                 setType(file.type.split('/')[0])
+                setLoading(false)
             })
             .catch(error => {
+                setLoading(false)
                 toast.error(error.message,{
                     position: "bottom-center",
                     autoClose: 5000,
@@ -107,6 +107,7 @@ function ChatScreen({id,name,handler}) {
     }
 
     const submitHandler=(e)=>{
+        setLoading(true)
         e.preventDefault()
 
         var myHeaders = new Headers();
@@ -131,6 +132,7 @@ function ChatScreen({id,name,handler}) {
         .then(response => response.text())
         .then(result => {
             // console.log(result)
+            setLoading(false)
 
             var myHeaders = new Headers();
             myHeaders.append("token", token);
@@ -153,14 +155,40 @@ function ChatScreen({id,name,handler}) {
                 setUrl("")
                 handler()
             })
-            .catch(error => console.log('error', error));
+            .catch(error => {
+                toast.error(error.message,{
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    toastId:"2"
+                  });
+            });
             
         })
-        .catch(error => console.log('error', error));
+        .catch(error => {
+            setLoading(false)
+            toast.error(error.message,{
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                toastId:"2"
+              });
+        });
             
     }
   return (
-        <div className={`col-7 d-flex d-flex-column border-rounded-16 p-8 border-light-gray`}>
+    <>
+        {loading?<Loader loading={loading}/>:<div className={`col-7 d-flex d-flex-column border-rounded-16 p-8 border-light-gray`}>
             <div className={`col-11 d-flex d-flex-row d-align-center gap-5 top-none`}>
                 <Avatar/>
                 <div className={`d-flex d-flex-column d-align-start gap-1`}>
@@ -192,7 +220,9 @@ function ChatScreen({id,name,handler}) {
                 </div>
             </form>
             
-        </div>
+        </div>}
+        <ToastContainer/>
+    </>
   )
 }
 

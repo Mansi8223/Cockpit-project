@@ -1,0 +1,22 @@
+.textarea{
+    height: 2rem; 
+    outline: none;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(1.125rem, 1.1000rem + 0.1250vw, 1.25rem);
+    line-height: clamp(1.375rem, 1.3000rem + 0.3750vw, 1.75rem);
+    color: var(--gray);
+    overflow-y: scroll;
+  }
+  .textarea::-webkit-scrollbar{
+    display: none;
+  }
+  .textarea::placeholder{
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(1.125rem, 1.1000rem + 0.1250vw, 1.25rem);
+    line-height: clamp(1.375rem, 1.3000rem + 0.3750vw, 1.75rem);
+    color: var(--gray);
+  }

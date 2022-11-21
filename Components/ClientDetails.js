@@ -39,6 +39,7 @@ function ClientDetails() {
     const[url, setUrl]=useState("")
     const[profile,setProfile]=useState("")
     const[activities,setActivities]=useState("")
+    const[totalSpend,setTotalSpend]=useState("")
     const[loading,setLoading]=useState(false)
     useEffect(()=>{
         setLoading(true)
@@ -128,8 +129,9 @@ useEffect(()=>{
       .then(response => response.text())
       .then(result =>{ 
           var res = JSON.parse(result);
-        // console.log(res.activity)
+        console.log(res)
           setActivities(res.activity)
+          setTotalSpend(res.totalSpend)
           setLoading(false)
       })
       .catch(error =>{ 
@@ -624,7 +626,7 @@ useEffect(()=>{
                                 <span className={`font-normal font-31 f-700 l-40`}>Tasks activity</span>
                                 <div className={`d-flex d-flex-row d-align-center gap-1`}>
                                     <h3 className={`font-normal f-600 l-28 color-gray`}>Total amount spent:</h3>
-                                    <h3 className={`font-normal f-700 l-28 color-yellow`}>$438</h3>
+                                    <h3 className={`font-normal f-700 l-28 color-yellow`}>${totalSpend}</h3>
                                 </div>
                             </div>
                             {activities && activities.map((item,index)=>(

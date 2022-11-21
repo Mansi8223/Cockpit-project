@@ -2,6 +2,14 @@
     height: 585px;
     overflow-y: scroll;
 }
+.circle{
+    width: 28px;
+    height: 28px;
+}
+.count{
+    width: 24px;
+    height: 24px;
+}
 .conversation-list::-webkit-scrollbar{
     display: none;
    }

@@ -151,6 +151,9 @@ body {
 .self-end{
   align-self: flex-end;
 }
+.self-baseline{
+  align-self: baseline;
+}
 
 /* positions */
 .p-relative{
@@ -789,13 +792,11 @@ input:checked + .slider:before{
   top:0;
   left:0;
 }
-
 .deliverables{
   width: 250px;
   height: 150px;
   border-radius: 12px;
 }
-
 .bg{
   background-color: var(--secondary);
   border: 3px solid var(--tertiary);

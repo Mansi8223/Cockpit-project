@@ -656,8 +656,3 @@ Breakpoints
         margin-left:clamp(2.5rem, 2.1667rem + 0.6944vw, 3rem) !important;
     }
 }
-@media screen and (min-width:991.98px){
-    .create-task{
-        width: 197px;
-    }
-}
